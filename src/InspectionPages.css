@@ -1,0 +1,143 @@
+.inspection-list-page {
+  width: 100%;
+  min-width: 0;
+}
+
+.inspection-list-page .checklist-items {
+  max-height: none;
+  overflow: visible;
+}
+
+.inspection-list-page .checklist-row {
+  width: 100%;
+  text-align: left;
+}
+
+.inspection-list-page .check-text {
+  min-width: 0;
+  flex: 1;
+}
+
+.inspection-list-page .check-text strong {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.inspection-status {
+  flex-shrink: 0;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+.inspection-status.pass {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.inspection-status.fail {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.inspection-detail-page {
+  width: 100%;
+  max-width: 960px;
+  margin-inline: auto;
+}
+
+.inspection-detail-page .inspection-detail {
+  position: static;
+  width: 100%;
+  min-width: 0;
+}
+
+.inspection-page-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.inspection-page-navigation > span {
+  color: #64748b;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.inspection-machine-info {
+  color: #64748b;
+  font-size: 14px;
+}
+
+.inspection-note {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 22px;
+  font-weight: 600;
+}
+
+.inspection-note textarea {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 110px;
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  font: inherit;
+  font-weight: 400;
+  resize: vertical;
+}
+
+.inspection-save-hint {
+  color: #64748b;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.inspection-detail-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.inspection-detail-footer button,
+.inspection-page-navigation button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+}
+
+.inspection-detail-footer button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+  .inspection-detail-page .inspection-detail {
+    padding: 16px;
+  }
+
+  .inspection-status {
+    font-size: 11px;
+    padding: 4px 7px;
+  }
+
+  .inspection-detail-footer button {
+    flex: 1;
+  }
+
+  .inspection-detail-page .detail-heading {
+    flex-wrap: wrap;
+  }
+}
