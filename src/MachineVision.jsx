@@ -394,7 +394,7 @@ function VisionPanel({
                 <div className="scan-label">
                   {job.status === "queued"
                     ? "อยู่ในคิว AI"
-                    : "Ollama กำลังวิเคราะห์"}
+                    : "AI กำลังวิเคราะห์"}
                 </div>
               </div>
             )}
@@ -419,7 +419,7 @@ function VisionPanel({
           >
             {job?.status === "failed"
               ? "ลองวิเคราะห์ใหม่"
-              : "วิเคราะห์ด้วย Ollama"}
+              : "วิเคราะห์ด้วย AI"}
           </button>
         </div>
       </fieldset>
@@ -429,14 +429,11 @@ function VisionPanel({
           <strong>
             {job.status === "queued"
               ? "รอคิวประมวลผล"
-              : "กำลังรอผลจาก Ollama"}
+              : "กำลังรอประมวลผลจาก AI"}
           </strong>
 
           <p>เวลาตั้งแต่ส่งงาน: {duration}</p>
           <p>ไปทำเช็คลิสต์ข้ออื่นได้ แล้วกลับมาดูผลที่ข้อนี้</p>
-          <small>
-            เวลานี้ไม่ใช่เปอร์เซ็นต์ความคืบหน้าของ AI
-          </small>
         </div>
       )}
 

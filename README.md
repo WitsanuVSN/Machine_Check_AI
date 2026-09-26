@@ -1,16 +1,41 @@
-# React + Vite
+# 1. ติดตั้ง Python, Ollama และ Node.js
+winget install -e --id Python.Python.3.13
+winget install -e --id Ollama.Ollama
+winget install -e --id OpenJS.NodeJS.LTS
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# ตรวจสอบ version
+py -3.13 --version
+ollama --version
+node -v
+npm -v
 
-Currently, two official plugins are available:
+# 2. โหลดโมเดล AI เปิดแอป Ollama จาก Start ก่อน แล้วรัน
+ollama pull gemma3:4b
+ollama list
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+# 3. ติดตั้งแพ็กเกจ Python
+cd /d C:\project_ai\machine-check-ai\backend_python
 
-## React Compiler
+# สร้าง .venv เฉพาะเครื่องใหม่ที่ยังไม่มี:
+py -3.13 -m venv .venv
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+# เปิดใช้งานและติดตั้งแพ็กเกจ:
+.venv\Scripts\activate
+python -m pip install --upgrade pip
+python -m pip install fastapi uvicorn python-multipart Pillow httpx "pydantic>=2,<3" ollama
 
-## Expanding the ESLint configuration
+# ถ้าจะใช้ไฟล์ vision.py รุ่น OpenCV เดิมด้วย ให้เพิ่ม:
+python -m pip install opencv-python numpy scikit-image
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+# 4. ติดตั้งแพ็กเกจหน้าเว็บ
+cd /d C:\project_ai\machine-check-ai
+npm install
+npm run dev
+
+# 5. รันหลังบ้าน — เปิดค้างไว้
+# 1
+cd /d C:\project_ai\machine-check-ai\backend_python
+# 2
+.venv\Scripts\activate //checkin in (vene or unicorn)
+# 3
+python -m uvicorn main:app --host 127.0.0.1 --port 8002

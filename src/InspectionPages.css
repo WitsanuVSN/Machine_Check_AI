@@ -141,3 +141,243 @@
     flex-wrap: wrap;
   }
 }
+
+/* กล่องรายการ */
+.inspection-list-page {
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.inspection-list-page .card-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: nowrap;
+  padding-bottom: 18px;
+}
+
+.inspection-list-page .card-heading > div {
+  min-width: 0;
+}
+
+.inspection-list-page .card-heading h2 {
+  margin: 0 0 6px;
+}
+
+.inspection-list-page .card-heading p {
+  margin: 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.inspection-list-page .badge {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* รายการแต่ละข้อ */
+.inspection-list-page .checklist-items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: none;
+  overflow: visible;
+}
+
+.inspection-list-page .checklist-row {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) max-content 20px;
+  align-items: center;
+  gap: 14px;
+
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 16px;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  background: #fff;
+  color: #0f172a;
+
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+/* เลขข้อ */
+.inspection-list-page .checklist-row > .check-number {
+  grid-column: 1;
+  grid-row: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 44px;
+  height: 44px;
+  margin: 0;
+  padding: 0;
+  border-radius: 12px;
+
+  background: #f1f5f9;
+  color: #64748b;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.inspection-list-page .check-number.pass {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.inspection-list-page .check-number.fail {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.inspection-list-page .check-number svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* ชื่อรายการ — ให้เฉพาะช่องนี้ตัดบรรทัดได้ */
+.inspection-list-page .checklist-row > .check-text {
+  grid-column: 2;
+  grid-row: 1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+
+  min-width: 0;
+  width: auto;
+  margin: 0;
+}
+
+.inspection-list-page .check-text strong {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.inspection-list-page .check-text small {
+  display: block;
+  color: #64748b;
+  font-size: 12px;
+  line-height: 1.5;
+  white-space: normal;
+}
+
+/* สถานะ — ไม่ตกบรรทัด */
+.inspection-list-page .checklist-row > .inspection-status {
+  grid-column: 3;
+  grid-row: 1;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: auto;
+  min-width: 0;
+  margin: 0;
+  padding: 6px 11px;
+  border-radius: 999px;
+
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: nowrap;
+  word-break: normal;
+
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+.inspection-list-page .inspection-status.pass {
+  background: #ecfdf5;
+  color: #15803d;
+}
+
+.inspection-list-page .inspection-status.fail {
+  background: #fff1f2;
+  color: #be123c;
+}
+
+/* ลูกศร — ล็อกไว้ช่องสุดท้าย */
+.inspection-list-page .checklist-row > svg {
+  grid-column: 4;
+  grid-row: 1;
+  justify-self: end;
+
+  position: static;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  color: #94a3b8;
+}
+
+@media (hover: hover) {
+  .inspection-list-page .checklist-row:hover {
+    border-color: #93c5fd;
+    background: #f8fbff;
+    box-shadow: 0 3px 12px rgb(15 23 42 / 5%);
+  }
+}
+
+.inspection-list-page .checklist-row:focus-visible {
+  outline: 3px solid #60a5fa;
+  outline-offset: 3px;
+}
+
+/* มือถือ */
+@media (max-width: 600px) {
+  .inspection-list-page .checklist-row {
+    grid-template-columns: 36px minmax(0, 1fr) max-content 16px;
+    gap: 8px;
+    padding: 13px 10px;
+    border-radius: 12px;
+  }
+
+  .inspection-list-page .checklist-row > .check-number {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    font-size: 14px;
+  }
+
+  .inspection-list-page .check-text strong {
+    font-size: 14px;
+  }
+
+  .inspection-list-page .check-text small {
+    font-size: 11px;
+  }
+
+  .inspection-list-page .checklist-row > .inspection-status {
+    padding: 5px 8px;
+    font-size: 11px;
+  }
+
+  .inspection-list-page .checklist-row > svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inspection-list-page .checklist-row {
+    transition: none;
+  }
+}

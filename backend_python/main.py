@@ -244,6 +244,7 @@ async def analyze(before, after):
 async def worker():
     while True:
         job_id, before, after = await queue.get()
+        started = time.monotonic()
 
         try:
             update_job(
@@ -257,30 +258,50 @@ async def worker():
                 timeout=AI_TIMEOUT,
             )
 
+            elapsed = round(time.monotonic() - started, 1)
+            minutes, seconds = divmod(int(elapsed), 60)
+
+            result["duration_seconds"] = elapsed
+            result["duration_label"] = (
+                f"{minutes} นาที {seconds} วินาที"
+            )
+            result["duration_note"] = (
+                "Ollama กำลังประมวลผลภาพด้วยเครื่องที่ตั้งค่าไว้ "
+                "ความเร็วขึ้นกับ CPU/GPU และขนาดภาพ"
+                if elapsed >= 60
+                else ""
+            )
+
             update_job(
                 job_id,
                 status="done",
                 result=result,
+                duration_seconds=elapsed,
                 finished_at=time.time(),
             )
 
         except asyncio.CancelledError:
+            elapsed = round(time.monotonic() - started, 1)
+
             update_job(
                 job_id,
                 status="failed",
                 error="Backend หยุดทำงาน กรุณาส่งวิเคราะห์ใหม่",
+                duration_seconds=elapsed,
+                finished_at=time.time(),
             )
             raise
 
         except Exception as error:
+            elapsed = round(time.monotonic() - started, 1)
             logger.exception("AI job failed: %s", job_id)
 
             if isinstance(
                 error, (asyncio.TimeoutError, httpx.TimeoutException)
             ):
                 message = (
-                    "Ollama ใช้เวลาเกิน 10 นาที "
-                    "กรุณาตรวจเครื่องประมวลผลแล้วลองใหม่"
+                    "AI ใช้เวลานานเกินขีดจำกัดการรอ "
+                    "ตรวจสถานะ Ollama แล้วลองใหม่"
                 )
             elif isinstance(error, httpx.ConnectError):
                 message = "เชื่อมต่อ Ollama ไม่ได้ กรุณาเปิด Ollama"
@@ -297,10 +318,20 @@ async def worker():
             else:
                 message = "วิเคราะห์ไม่สำเร็จ ตรวจข้อความใน Terminal"
 
+            minutes, seconds = divmod(int(elapsed), 60)
+
             update_job(
                 job_id,
                 status="failed",
                 error=message,
+                duration_seconds=elapsed,
+                duration_label=f"{minutes} นาที {seconds} วินาที",
+                duration_note=(
+                    "การอ่านภาพใช้ทรัพยากรประมวลผล "
+                    "เวลาจึงขึ้นกับ CPU/GPU และขนาดภาพ"
+                    if elapsed >= 60
+                    else ""
+                ),
                 finished_at=time.time(),
             )
 
